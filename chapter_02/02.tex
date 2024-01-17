@@ -1,6 +1,31 @@
 %! TEX root = ./main.tex
-\begin{exercise}[TODO]{}
+\begin{exercise}[]{}
+	Consider a weighted average forecaster based on a potential function
+\begin{equation*}
+	\Phi(u) = \psi \left( \sum_{i=1}^{N} \phi(u_i) \right).
+\end{equation*}
+Assume further that the quantity $ C(r_t) $ appearing in the statement of Theorem 2.1 is bounded by a constant for all values of $ r_t $ and that the function $ \psi(\phi(u)) $ is strictly convex. Show that there exists a nonnegative sequnce $ \epsilon_n \rightarrow 0 $ such that the cumulative regret of the forecaster satisfies, for every n and for every outcome sequence $ y^{n} $,
+\begin{equation*}
+	\frac{1}{n}\left( \max_{i=1, \ldots N}R_{i,n} \right) \leq \epsilon_n
+\end{equation*}
+
 \end{exercise}
 
-\begin{solution}[TODO]
+\begin{solution}[]
+We start by assuming that $ C(r_t) \leq C $ for all values of $ r_t $. We apply theorem 2.1 and we get that :
+\begin{equation*}
+	\Phi(R_n) \leq \Phi(0) + \frac{1}{2}\sum_{t=1}^{n}C(r_t) \leq \Phi(0) + \frac{Cn}{2}
+\end{equation*}
+Then, since we know that $ \psi\circ \phi $ is non decreasing and strictly convex, it must be increasing and as a result, both $ \psi \circ \phi $ and $ \phi $ must be invertible and increasing and we have : 
+\begin{equation*}
+	\psi \left( \phi \left( \max_{i=1,\ldots,N} R_{i,n} \right) \right) \leq \psi \left( \max_{i=1,\ldots,N} \phi(R_{i,n}) \right) \leq \psi\left(\sum_{i=1}^{N} \phi(R_{i,n})\right) = \Phi(R_n)
+\end{equation*}
+Hence :
+\begin{align*}
+	\max_{i=1,\ldots,N}R_{i,n} &\leq \phi^{-1}(\psi^{-1}(\Phi(R_n)))\\
+	\frac{1}{n} \left( \max_{i=1,\ldots,N}R_{i,n} \right)				   &\leq \underbrace{\frac{(\psi\circ \phi)^{-1}\left(\Phi(0) + \frac{Cn}{2}\right)}{n}}_{\epsilon_n}
+\end{align*}
+Now we need to show that $ \epsilon_n \rightarrow 0 $. That is the same as saying that for a stricly convex increasing function F, we have $ \lim_{x\rightarrow \infty}\frac{F^{-1}(x)}{x} = 0 $ or equivalenty $  \lim_{x\rightarrow \infty}\frac{F(x)}{x} = + \infty  $. This doesn't seem to be true in general. Indeed, the function $ F(x) = \sqrt{x^{2}+1}-1 $ is stricly convex but $ F(x) \underset{x\rightarrow \infty}{\sim} x $. The result would be true if we assume that $ \psi \circ \phi $ is strongly convex as it would be lower bounded by a positive quadratic.
+
+
 \end{solution}
