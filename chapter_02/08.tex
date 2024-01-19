@@ -1,6 +1,33 @@
 %! TEX root = ./main.tex
-\begin{exercise}[TODO]{}
+\begin{exercise}[]{The doubling trick}
+	Consider the following forecasting strategy("Doubling Trick"): time is divided in periods $ (2^m,\ldots, 2^{m+1}-1) $, where $ m=0,1,2,\ldots $ . In period $ (2^m,\ldots,2^{m+1}-1) $ the strategy uses the exponentially weighted average forecaster initialized at time $ 2^{m} $ with parameter $ \eta_m = \sqrt{8(\log N)/2^m} $. Thus, the weighted average forecaster is reset at each time instance that is an integer power of 2 and is restarted with a new value of $ \eta $. Using Theorem 2.2 prove that, for any sequence $ y_1,y_2,\ldots \in \mathcal{Y}  $ of outcomes and for any $ n\geq 1 $, the regret of this forecaster is at most
+\begin{equation*}
+	\widehat{L_n} - \min_{i=1,\ldots,N} L_{i,n} \leq \frac{\sqrt{2}}{\sqrt{2}-1} \sqrt{\frac{n}{2}\log N}
+\end{equation*}
+
 \end{exercise}
 
-\begin{solution}[TODO]
+\begin{solution}[]
+	Let $ n\geq 1 $, and let $ M $ be the only integer such that $ 2^{M}\leq n \leq  2^{M+1}$. We have :
+\begin{align*}
+	&\widehat{L_n} - \min_{i=1,\ldots,N} L_{i,n} \\
+	&= \sum_{t=1}^{n} \ell(\hat{p}_t,y_t) - \min_{i=1,\ldots,N}\sum_{t=1}^{n}f_{i,t} \\
+	&= \left( \sum_{m=0}^{M}\sum_{t=2^{m}}^{2^{m+1}\wedge n} \ell(\hat{p}_t,y_t) \right) -  \min_{i=1,\ldots,N}\left(\sum_{m=0}^{M}\sum_{t=2^m}^{2^{m+1}\wedge n}f_{i,t} \right)\\
+	&\leq   \sum_{m=0}^{M}\left(\sum_{t=2^{m}}^{2^{m+1}\wedge n} \ell(\hat{p}_t,y_t) \right) -  \sum_{m=0}^{M}\left(\min_{i=1,\ldots,N}\sum_{t=2^m}^{2^{m+1}\wedge n}f_{i,t} \right)\\
+	&=   \sum_{m=0}^{M}\left(\underbrace{\sum_{t=2^{m}}^{2^{m+1}\wedge n} \ell(\hat{p}_t,y_t)  -  \min_{i=1,\ldots,N}\sum_{t=2^m}^{2^{m+1}\wedge n}f_{i,t} }_{R_{m,n}}\right)\\
+\end{align*}
+Where $ R_{m,n} $ is the regret suffered by our forecaster during phase m(and up to time n) which has exactly $ 2^{m+1}\wedge n - 2^{m} \leq 2^{m} $ steps. In particular, using the bound of Theorem 2.2, and the choice of $ \eta_m $ we know that 
+\begin{equation*}
+	\forall m\leq M, R_m \leq \sqrt{(2^{m}/2)\log N}
+\end{equation*}
+Finally :
+\begin{align*}
+	&\widehat{L_n} - \min_{i=1,\ldots,N} L_{i,n} \\
+	&\leq \sum_{m=0}^{M} \sqrt{(2^{m}/2)\log N} \\
+	&\leq \sqrt{\frac{\log N}{2}}\cdot \frac{\sqrt{(2^{M+1})}-1}{\sqrt{2}-1}\\
+	&\leq \sqrt{\frac{\log N}{2}}\cdot \frac{\sqrt{(2^{M+1})}}{\sqrt{2}-1}\\
+	&\leq \frac{\sqrt{2}}{\sqrt{2}-1}\sqrt{\frac{n}{2}\log N}
+\end{align*}
+Where we used $ 2^{M+1} \leq 2n $ on the last line.
+
 \end{solution}
