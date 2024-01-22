@@ -1,6 +1,79 @@
 %! TEX root = ./main.tex
-\begin{exercise}[TODO]{}
+\begin{exercise}[]{}
+	Prove Lemma 2.5. \it{Hint:} Adapt the proof of Theorem 2.3.
+
+\textbf{Lemma 2.5.} Let h be a payoff function concave in its first argument. The exponentially weighted average forecaster, run with any nonincreasing sequence $ \eta_1,\eta_2,\ldots $ of parameters satisfies, for any $  n \geq 1 $ and for any sequence $ y_1,\ldots,y_n $ of outcomes,
+\begin{equation*}
+	H_n^{*} - \widehat{H}_n \leq \left( \frac{2}{\eta_{n+1}} - \frac{1}{\eta_1} \right) \log N + \sum_{t=1}^{n} \frac{1}{\eta_t} \log \EE{e^{\eta_t(X_t - \EE{X_t})}}.
+\end{equation*}
+Where $ X_t $ are independent random variable such that $ X_t = h(f_{i,t},y_t) $ with probability $ \frac{w_{i,t-1}}{W_{t-1}} $
 \end{exercise}
 
-\begin{solution}[TODO]
+\begin{solution}[]
+	We follow the structure of the proof of Theorem 2.3. We once again define the currently best expert $ k_t $ that we will use to lower bound the weight $ \log(\frac{w_{k_t,t}}{W_t}) $ and $ w^{'}_{i,t-1} = \exp{\eta_{t-1}H_{i,t-1}} $ to denote the weight $ w_{i,t-1} $ where the parameter $ \eta_t $ is replaced by $ \eta_{t-1} $. We write the following :
+\begin{align*}
+	&\frac{1}{\eta_t} \log \frac{w_{k_{t-1},t-1}}{W_{t-1}} - \frac{1}{\eta_{t+1}}\log \frac{w_{k_t,t}}{W_t} \\
+	&= \underbrace{\left( \frac{1}{\eta_{t+1}} - \frac{1}{\eta_t} \right) \log \frac{W_t}{w_{k_t,t}}}_{(A)} + \underbrace{\frac{1}{\eta_t}\log \frac{w^{'}_{k_t,t}/W^{'}_t}{w_{k_t,t}/W_t}}_{(B)} + \underbrace{\frac{1}{\eta_t}\log \frac{w_{k_{t-1},t-1}/W_{t-1}}{w^{'}_{k_t,t}/W^{'}_t}}_{(C)}
+\end{align*}
+As in the proof of Theorem 2.3 we have that 
+\begin{equation*}
+	(A) \leq \left( \frac{1}{\eta_{t+1}}-\frac{1}{\eta_t} \right)\log N.
+\end{equation*}
+because the sequence $ \eta_t $ is increasing.
+For (B), we have :
+\begin{align*}
+	(B) &= \frac{1}{\eta_t} \log \frac{w^{'}_{k_t,t}/W^{'}_t}{w_{k_t,t}/W_t} = \frac{1}{\eta_t}\log \frac{\sum_{i=1}^{N}e^{\eta_{t+1}(H_{i,t}-H_{k_t,t})}}{\sum_{i=1}^{N} e^{\eta_t (H_{i,t}-H_{k_t,t})}} \\
+	    & \leq \frac{\eta_t - \eta_{t+1}}{\eta_t \eta_{t+1}}\log N = \left( \frac{1}{\eta_{t+1}} - \frac{1}{\eta_t} \right) \log N
+\end{align*}
+Where we applied Lemma 2.3 with $ d_i = H_{k_{t+1},t} - H_t$, $ \alpha = \eta_{t+1} $ and $ \beta = \eta_t $. As in the proof of theorem 2.3, we have that $ d_i \geq 0$ because $k_{t+1} $ is the index of the expert with the highest payoff after the first t rounds and $ \sum_{i=1}^{N}e^{-\eta_{t+1}d_i} \geq 1 $ as $ d_{k_{t+1}} =0 $. 
+
+Now, we split the term (C) :
+\begin{equation*}
+	(C) = \frac{1}{\eta_t}\log \frac{w_{k_{t-1},t-1}/W_{t-1}}{w^{'}_{k_t,t}/W^{'}_t} = \frac{1}{\eta_t} \frac{w_{k_{t-1},t-1}}{w^{'}_{k_t,t}} + \frac{1}{\eta_t} \log \frac{W^{'}_t}{W_{t-1}}
+\end{equation*}
+We treat the two subterms of the right-hand side separately. For the first one, we have :
+\begin{equation*}
+	\frac{1}{\eta_t} \log \frac{w_{k_{t-1},t-1}}{w^{'}_{k_t,t}} = \frac{1}{\eta_t} \log \frac{e^{\eta_t H_{k_{t-1},t-1}}}{e^{\eta_t H_{k_t,t}}} = H_{k_{t-1},t-1} - H_{k_t,t}
+\end{equation*}
+So far, we have not changed anything in the proof of Theorem 2.3, we have just checked that the steps of the proof carry on to the more general signed games setting. Now we will study the second term of the right-hand side of (C) and introduce the variable $ X_t $ to replace the Hoeffding's bound that was done in the proof of Theorem 2.3. We have :
+\begin{equation*}
+	\frac{1}{\eta_t} \log \frac{W^{'}_t}{W_{t-1}} = \frac{1}{\eta_t}\log \sum_{i=1}^{N} \frac{w_{i,t-1}}{W_{t-1}}e^{\eta_t h(f_{i,t},y_t)} = \frac{1}{\eta_t} \log \EE{e^{\eta_tX_t}}
+\end{equation*}
+by definition of $ X_t $. 
+Now we compute $ \EE{X_t} $:
+\begin{align*}
+	\EE{X_t} &= \sum_{i=1}^{N}\frac{w_{i,t-1}}{W_{t-1}}h(f_{i,t},y_t)\\
+		 &\leq h \left( \sum_{i=1}^{N}\frac{w_{i,t-1}}{W_{t-1}}f_{i,t},y_t \right)\\
+		 &=h(\hat{p}_t,y_t)
+\end{align*}
+Where the inequality comes from the concavity of h in its first argument.
+Coming back to the previous bound, we have :
+\begin{align*}
+	\frac{1}{\eta_t}\log \frac{W^{'}_t}{W_{t-1}}&\leq \frac{1}{\eta_t}\log \EE{e^{\eta_tX_t}}\\
+	&\leq \frac{1}{\eta_t}\log \EE{e^{\eta_tX_t}} + h(\hat{p}_t,y_t) - \EE{X_t}\\
+	&= \frac{1}{\eta_t}\log \EE{e^{\eta_tX_t}} + h(\hat{p}_t,y_t) - \frac{1}{\eta_t}\log e^{\eta_t\EE{X_t}}\\
+	&= \frac{1}{\eta_t}\log \EE{e^{\eta_t(X_t-\EE{X_t})}} + h(\hat{p}_t,y_t)
+\end{align*}
+Putting everything together, we get :
+\begin{align*}
+	&\frac{1}{\eta_t} \log \frac{w_{k_{t-1},t-1}}{W_{t-1}} - \frac{1}{\eta_{t+1}}\log \frac{w_{k_t,t}}{W_t}\\
+	&\leq 2 \left( \frac{1}{\eta_{t+1}}- \frac{1}{\eta_t} \right) \log N + H_{k_{t-1},t-1} - H_{k_t,t} + \frac{1}{\eta_t}\log \EE{e^{\eta_t(X_t-\EE{X_t})}} + h(\hat{p}_t,y_t)
+\end{align*}
+Or rearranging :
+\begin{align*}
+	& H_{k_{t-1},t-1} - H_{k_t,t} - h(\hat{p}_t,y_t)\\
+	&\leq 2 \left( \frac{1}{\eta_{t+1}}- \frac{1}{\eta_t} \right) \log N + \frac{1}{\eta_t}\log \EE{e^{\eta_t(X_t-\EE{X_t})}} -\frac{1}{\eta_t} \log \frac{w_{k_{t-1},t-1}}{W_{t-1}} +\frac{1}{\eta_{t+1}}\log \frac{w_{k_t,t}}{W_t}
+\end{align*}
+Summing all of these inequalities for $ t=1,\ldots,n $, we get :
+\begin{align*}
+	H_n^{*} - \widehat{H}_n &\leq 2\left( \frac{1}{\eta_{n+1}} - \frac{1}{\eta_1} \right) \log N + \sum_{t=1}^{n}\frac{1}{\eta_t}\log \EE{e^{\eta_t(X_t-\EE{X_t})}}\\
+				&\quad+ \frac{1}{\eta_{n+1}} \log \frac{w_{k_n,n}}{W_n} - \frac{1}{\eta_1}\log \frac{1}{N} \\
+				&\leq \left( \frac{2}{\eta_{n+1}} - \frac{1}{\eta_1} \right) \log N + \sum_{t=1}^{n}\frac{1}{\eta_t}\log \EE{e^{\eta_t(X_t-\EE{X_t})}}
+\end{align*}
+Where we used that $ \frac{w_{k_n,n}}{W_n} \leq 1 $.
+
+
+
+
+
 \end{solution}
