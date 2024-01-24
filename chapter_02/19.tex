@@ -1,6 +1,29 @@
 %! TEX root = ./main.tex
-\begin{exercise}[TODO]{}
+\begin{exercise}[]{}
+	Consider a class $ \mathcal{F} $ of simulatable experts. Assume that the set $ \mathcal{Y} $ of outcomes is a compact subset of $ \mathbb{R}^d $, the decision space $  \mathcal{D} $ is convex, and the loss function $ \ell $ is convex and continuous in its first argument. Show that $ V_n(\mathcal{F}) = U_n(\mathcal{F}) $. \it{Hint:} Check the conditions of Theorem 7.1
 \end{exercise}
 
-\begin{solution}[TODO]
+\begin{solution}[]
+	We define $ \mathcal{P} $ the set of all the forecasting strategies on decision space $ \mathcal{D} $ and outcome space $ \mathcal{Y} $ where a forecasting strategy $ P\in \mathcal{P} $ is a sequence $ \hat{p}_1,\hat{p}_2\ldots $ of functions
+\begin{equation*}
+		\hat{p}_t: \mathcal{Y}^{t-1}\times (\mathcal{D}^{N})^{t}\rightarrow \mathcal{D} .
+\end{equation*}
+We also define $ \mathcal{P}(\mathcal{Y}) $ the set of all the Borel probability measures on $ Y $.
+	As suggested in the hint, we look at the function :
+\begin{align*}
+f: \mathcal{P}\times \mathcal{P}(\mathcal{Y})& \longrightarrow \mathbb{R} \\
+(P,Q)&\longmapsto \int_{\mathcal{Y}^{n}}\left( \sum_{t=1}^{n}\ell(\hat{p}_t(y^{t-1}),y_t) - \inf_{f\in \mathcal{F}}\sum_{t=1}^{n}\ell(f_t(y^{t-1}),y_t) \right) \,dQ(y^{n}) 
+\end{align*}
+And check the conditions of Theorem 7.1. The first step is to check the measurability of the function $ g(y) =  \inf_{f\in \mathcal{F}}\sum_{t=1}^{n}\ell(f_t(y^{t-1}),y_t)$. Since $ \mathcal{Y} $ is a compact set, we can find a countable set $ \mathcal{F}_d $ such that $ g(y) =\inf_{f\in \mathcal{F}_d}\sum_{t=1}^{n}\ell(f_t(y^{t-1}),y_t) $. To see that, we can see that any function $ f_t(y^{t-1}) $ can be uniformely approximated by a multivariate polynomial with rational coefficients using Stone-Weierstrass Theorem. Then, we only need to approximate n of this functions to get the same infimum(Since the infimum only depends on the predictions up to time n). Now, we also know that $ \ell $ is bounded because $ \mathcal{Y} $ is a compact space and $ \ell $ is continuous (Here we make the additional assumption that $ \ell $ is continuous or that $ \ell $ is bounded, we might be able to relax it and only assume that $ \ell $ is continuous in its first argument but I'm not sure of that.). That proves that f is well defined and bounded. Moreover, using dominated convergence, this proves the continuity of f in P(as $ \ell $ is continuous in its first argument).
+We can easily check that both $ \mathcal{P} \quad \text{and} \quad \mathcal{P}(\mathcal{Y}) $ are convex sets. Now we only need to check the convexity of $ f(\cdot ,Q) $ and the concavity of $ f(P,\cdot ) $ for any $ P\in \mathcal{P} $ and any $ Q\in \mathcal{P}(\mathcal{Y}) $. The linearity of $ f(P,\cdot ) $ directly implies its concavity. Now, let $ Q \in \mathcal{P}(\mathcal{Y}) $, $ P_1,P_2 \in \mathcal{P} $, and $ \lambda \in [0,1] $ We have :
+\begin{align*}
+	&\quad f((1-\lambda)P_1+\lambda P_2,Q)\\
+	&= \int_{\mathcal{Y}^{n}}\left( \sum_{t=1}^{n}\ell((1-\lambda)\hat{p}_{1,t}(y^{t-1}) + \lambda \hat{p}_{2,t}(y^{t-1}),y_t) - \inf_{f\in \mathcal{F}}\sum_{t=1}^{n}\ell(f_t(y^{t-1}),y_t) \right) \,dQ(y^{n})\\
+	&\leq  \int_{\mathcal{Y}^{n}}\left( \sum_{t=1}^{n}(1-\lambda)\ell(\hat{p}_{1,t}(y^{t-1}),y_t) + \lambda \ell(\hat{p}_{2,t}(y^{t-1}),y_t) - \inf_{f\in \mathcal{F}}\sum_{t=1}^{n}\ell(f_t(y^{t-1}),y_t) \right) \,dQ(y^{n})\\
+	&=(1-\lambda)\int_{\mathcal{Y}^{n}}\left( \sum_{t=1}^{n}\ell(\hat{p}_{1,t}(y^{t-1}),y_t) - \inf_{f\in \mathcal{F}}\sum_{t=1}^{n}\ell(f_t(y^{t-1}),y_t) \right) \,dQ(y^{n})\\
+	&\quad+ \lambda \cdot \int_{\mathcal{Y}^{n}}\left( \sum_{t=1}^{n}\ell(\hat{p}_{2,t}(y^{t-1}),y_t) - \inf_{f\in \mathcal{F}}\sum_{t=1}^{n}\ell(f_t(y^{t-1}),y_t) \right) \,dQ(y^{n})\\
+	&= (1-\lambda)f(P_1,Q) + \lambda f(P_2,Q)
+\end{align*}
+Where the inequality comes from the convexity of $ \ell $ in its first argument and all the integrals manipulations are valid because everything is bounded.
+
 \end{solution}
