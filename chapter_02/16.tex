@@ -1,6 +1,29 @@
 %! TEX root = ./main.tex
-\begin{exercise}[TODO]{}
+\begin{exercise}[]{}
+	Prove a regret bound for the multilinear forecaster using the update $ w_{i,t} = w_{i,t-1}(1+\eta r_{i,t}) $, where $ r_{i,t} = h(f_{i,t}) - h(\hat{p}_t,y_t) $ is the instantaneous regret. What can you say about the evolution of the total weight $ W_t = w_{1,t} + \cdots + w_{N,t} $ of the experts ?
 \end{exercise}
 
-\begin{solution}[TODO]
+\begin{solution}[]
+We will prove a bound similar to the bound of Theorem 2.5. We will assume again that the payoff function h is concave in its first argument. We assume that $ D = \max_{f_1, f_2\in \mathcal{D}, y, \in \mathcal{Y}}h(f_1,y) - h(f_2,y) <\infty $ (In particular, that is the case if h is bounded). Then for any n and $ 0<\eta< \frac{1}{2D} $, and for all $ y_1,\ldots,y_n \in \mathcal{Y}$, the regret of the multilnear forecaster satisfies
+\begin{equation*}
+	R_{i,n} \leq \frac{\log N}{\eta} + \eta \sum_{t=1}^{n}r_{i,t}^2 \quad  \text{for each } i=1,\ldots,N.
+\end{equation*}
+
+We follow the proof of theorem 2.5, since $ \eta \leq \frac{1}{2D} $, we have that $ \eta r_{i,t} \geq -\frac{1}{2} $ and we can apply Lemma 2.4 to $ \eta r_{i,t} $
+\begin{align*}
+	\log \frac{W_n}{W_0} &= - \log N + \log \prod_{t=1}^n(1+ \eta r_{i,t})\\
+			     &= - \log N + \sum_{t=1}^{n} \log(1 + \eta r_{i,t}) \\
+			     &\leq -\log N + \sum_{t=1}^{n}(\eta r_{i,t} - \eta^2 r_{i,t}^2) \\
+			     &\leq -\log N + \eta R_{i,n} -\eta^2 \sum_{t=1}^{n}r_{i,t}^2.
+\end{align*}
+
+On the other hand, defining $ \bar{w}_{i,t} = \frac{w_{i,t}}{W_t} $ the normalized weights, we have that for any t,
+\begin{align*}
+	\log \frac{W_t}{W_{t-1}} &= \log \left( \sum_{i=1}^{N}\bar{w}_{i,t}(1+ \eta r_{i,t}) \right) \\
+				 &\leq  \eta \sum_{i=1}^{N}\bar{w}_{i,t}r_{i,t}\\
+				 &=\eta(\sum_{i=1}^{N}\bar{w}_{i,t}h(f_{i,t},y_t) - h(\hat{p}_t,y_t))\\
+				 &\leq \eta(h(\hat{p}_t,y_t) - h(\hat{p}_t,y_t))\\
+				 &= 0,
+\end{align*}
+where the first inequality is a consequence of the elementary inequality $ \log(1+x) \leq x $ for any $ x>-1 $ and the second inequality comes from the concavity of h in its first argument. In particular we have proven that the total weight $ W_t $ is decreasing and that $ \log \frac{W_n}{W_0} \leq 0 $. Combining that with the lower bound of $ \log \frac{W_n}{W_0} $ and dividing by $ \eta >0 $, we get the claimed bound.
 \end{solution}
