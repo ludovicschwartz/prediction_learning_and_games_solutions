@@ -10,7 +10,7 @@ Under the same conditions as in the statement of Theorem 2.2, show that for ever
 \begin{equation*}
 	\widehat{L_n} \leq \min_{i=1,\ldots,N} \left( L_{i,n} + \frac{1}{\eta}\log \frac{1}{w_{i,0}} \right) + \frac{\log W_0}{\eta} + \frac{\eta}{8}n
 \end{equation*}
-where $ W_0 = w_{1,0} + \cdots + w_{N,0} $
+where $ W_0 = w_{1,0} + \cdots + w_{N,0} $.
 \end{exercise}
 
 \begin{solution}[]
@@ -18,20 +18,20 @@ where $ W_0 = w_{1,0} + \cdots + w_{N,0} $
 \begin{align*}
 	W_t &= \sum_{i=1}^{N}w_{i,t} \\
 	    &= \sum_{i=1}^{N}\exp{(-\eta L_{i,t})}w_{i,0} \\
-	    &= \sum_{i=1}^{N}\exp{-\eta \left(L_{i,t} + \frac{1}{\eta}\log \frac{1}{w_{i,0}}\right)}
+	    &= \sum_{i=1}^{N}\exp{-\eta \left(L_{i,t} + \frac{1}{\eta}\log \frac{1}{w_{i,0}}\right)}.
 \end{align*}
 Now as in the proof of theorem 2.2, we analyse $ \log \frac{W_t}{W_0} $ and $ \log \frac{W_t}{W_{t-1}} $.
 We have :
 \begin{align*}
 	\log \frac{W_n}{W_0} &= \log \left( \sum_{i=1}^{N}\exp{-\eta \left(L_{i,n} + \frac{1}{\eta}\log \frac{1}{w_{i,0}}\right)} \right) - \log W_0 \\
 			     &\geq \log \left( \max_{i=1,\ldots,N}\exp{-\eta \left(L_{i,n} + \frac{1}{\eta}\log \frac{1}{w_{i,0}}\right)} \right) \\
-			     &= - \eta \left( \min_{i=1,\ldots,N}L_{i,n} + \frac{1}{\eta}\log \frac{1}{w_{i,0}} \right) - \log W_0
+			     &= - \eta \left( \min_{i=1,\ldots,N}L_{i,n} + \frac{1}{\eta}\log \frac{1}{w_{i,0}} \right) - \log W_0.
 \end{align*}
 On the other hand, exactly as in the proof of Theorem 2.2, we get for each $ t=1,\ldots,n, $
 \begin{align*}
 	\log \frac{W_t}{W_{t-1}} &= \log \frac{\sum_{i=1}^{N}\exp{(-\eta\ell(f_{i,t},y_t))}\exp{\left( -\eta \left( L_{i,t-1} + \frac{1}{\eta}\log \frac{1}{w_{i,0}} \right) \right)}}{\sum_{i=1}^{N}\exp{\left( -\eta \left( L_{i,t-1} + \frac{1}{\eta}\log \frac{1}{w_{i,0}} \right) \right)}} \\
 				 &= \log \frac{\sum_{i=1}^{N}w_{i,t-1}\exp{(-\eta\ell(f_{i,t},y_t))}}{\sum_{i=1}^{N}w_{i,t-1}} \\
-				 &\leq -\eta\ell(\hat{p}_t,y_t) + \frac{\eta^2}{8}
+				 &\leq -\eta\ell(\hat{p}_t,y_t) + \frac{\eta^2}{8}.
 \end{align*}
 Where the last inequality is obtained by using Hoeffding's Lemma and the convecity of the loss exactly like in the proof of Theorem 2.2.
 Summing over $ t=1,\ldots,n $, we get
@@ -41,7 +41,7 @@ Summing over $ t=1,\ldots,n $, we get
 
 Putting this together with the previous upper bound and solving for $ \widehat{L_n} $ we get :
 \begin{equation*}
-	\widehat{L_n} \leq \min_{i=1,\ldots,N} \left( L_{i,n} + \frac{1}{\eta}\log \frac{1}{w_{i,0}} \right) + \frac{\log W_0}{\eta} + \frac{\eta}{8}n
+	\widehat{L_n} \leq \min_{i=1,\ldots,N} \left( L_{i,n} + \frac{1}{\eta}\log \frac{1}{w_{i,0}} \right) + \frac{\log W_0}{\eta} + \frac{\eta}{8}n.
 \end{equation*}
 
 \end{solution}

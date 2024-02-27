@@ -1,15 +1,15 @@
 %! TEX root = ./main.tex
 \begin{exercise}[]{}
-	Prove Lemma 2.4 ($ \forall z \geq \frac{1}{2}, \log (1+z) \geq z - z^2 $)
+	Prove Lemma 2.4 ($ \forall z \geq \frac{1}{2}, \log (1+z) \geq z - z^2 $).
 \end{exercise}
 
 \begin{solution}[]
 	Let $ f(z) = \log (1+z) - z + z^2 $. We have that f is differentiable on $ [-\frac{1}{2},+\infty[ $. In particular :
 \begin{equation*}
-	f^{\prime}(z) = \frac{1}{1+z} - 1 + 2z = \frac{1}{1+z}\cdot (1 - (1+z) - 2z(1+z)) = \frac{z(2z+1)}{1+z} 
+	f^{\prime}(z) = \frac{1}{1+z} - 1 + 2z = \frac{1}{1+z}\cdot (1 - (1+z) - 2z(1+z)) = \frac{z(2z+1)}{1+z} .
 \end{equation*}
 From this we know that $ f^{\prime} $ is non-positive on $ [-\frac{1}{2},0] $ and non-negative on $ [0,+\infty[ $. In particular $ \forall z\in [-\frac{1}{2}, +\infty[, f(z) \geq f(0)=0 $. That is to say :
 \begin{equation*}
-	\forall z \geq \frac{1}{2}, \log (1+z) \geq z - z^2
+	\forall z \geq \frac{1}{2}, \log (1+z) \geq z - z^2.
 \end{equation*}
 \end{solution}
