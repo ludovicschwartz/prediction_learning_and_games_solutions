@@ -1,6 +1,6 @@
 %! TEX root = ./main.tex
 \begin{exercise}[]{}
-	Let $ \mathcal{Y} = \{ 0,1 \}, \mathcal{D} = [0,1] $, and $ \ell(\bar{p},y) = |\bar{p}-y| $. Prove that the cumulative loss $ \hat{L} $ of the exponentially weighted aerage forecaster is always at least as largeas the cumulative loss $ \min_{i \leq N}L_i $ of the best expert. Show that for other loss functions, such as the square loss $ (\bar{p}-y)^2 $, this is not necessarily so. \textit{Hint :} Try to reverse the proof of Theorem 2.2. 
+	Let $ \mathcal{Y} = \{ 0,1 \}, \mathcal{D} = [0,1] $, and $ \ell(\bar{p},y) = |\bar{p}-y| $. Prove that the cumulative loss $ \hat{L} $ of the exponentially weighted aerage forecaster is always at least as large as the cumulative loss $ \min_{i \leq N}L_i $ of the best expert. Show that for other loss functions, such as the square loss $ (\bar{p}-y)^2 $, this is not necessarily so. \textit{Hint :} Try to reverse the proof of Theorem 2.2. 
 \end{exercise}
 
 \begin{solution}[]
@@ -18,11 +18,11 @@ Here rather than lower bounding the sum by its biggest element, we upper bound i
 Now we define $ \bar{w}_{i,t} = \frac{w_{i,t}}{\sum_{j=1}^{N}w_{j,t}} $ the normalized exponential weights. We have :
 \begin{align*}
 	\log \frac{W_t}{W_{t-1}} &= \log \sum_{i=1}^{N} \bar{w}_{i ,t-1}\cdot e^{-\eta\ell(f_{i ,t},y_t)}\\
-				 &\leq \sum_{i=1}^{N}\bar{w}_{i ,t-1}\cdot (-\eta\ell(f_{i ,t},y_t)),
+				 &\geq \sum_{i=1}^{N}\bar{w}_{i ,t-1}\cdot (-\eta\ell(f_{i ,t},y_t)),
 \end{align*}
 where we use the concavity of the logarithm and Jensen's Inequality in the second line. Now, if $ y_t = 0 $, for any $ f\in \mathcal{D} $ we have $ \ell(f, y_t) = f $, and if $ y_t =1 $, $ \ell(f,y_t) = 1-f $. In particular, the loss function is linear in it's first coordinate. In particular,
 \begin{equation*}
-	\log \frac{W_t}{W_{t-1}} = -\eta \ell(\sum_{i=1}^{N}\bar{w}_{i,t-1}f_{i.t},y_t) = -\eta \ell(\hat{p}_t,y_t).
+	\log \frac{W_t}{W_{t-1}} \geq  -\eta \ell(\sum_{i=1}^{N}\bar{w}_{i,t-1}f_{i.t},y_t) = -\eta \ell(\hat{p}_t,y_t).
 \end{equation*}
 Here we used the absolute loss and the particular shape of the decision and outcome spaces. This particular steps is not possible anymore with the square loss.
 Summing over $ t=1,\ldots,n $ and combining both bounds, we get :
