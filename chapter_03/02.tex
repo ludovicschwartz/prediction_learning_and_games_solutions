@@ -1,0 +1,40 @@
+%! TEX root = ./main.tex
+\begin{exercise}[]{}
+	Let $ \mathcal{Y} = \mathcal{D} = [0,1], $ and consider the \textit{Hellinger loss}
+\begin{equation*}
+	\ell(z,y) = \frac{1}{2} \left( (\sqrt{z}-\sqrt{y})^2 + (\sqrt{1-z}-\sqrt{1-y})^2 \right)
+\end{equation*}
+(see Figure 3.6). Determine the values of $ \eta $ for which the function $ F(z) $ defined in Section 3.3 is concave.
+\end{exercise}
+
+\begin{solution}[]
+	We have 
+\begin{equation*}
+	F(z) = e^{-\eta\ell(z,y)}.
+\end{equation*}
+As a result, we have 
+\begin{equation*}
+	\frac{\partial F}{\partial z} = -\eta \frac{\partial \ell}{\partial z} (z,y) e^{-\eta \ell(z,y)}.
+\end{equation*}
+and
+\begin{equation*}
+	\frac{\partial ^2F}{\partial ^2z} = \left( -\frac{\partial ^2\ell}{\partial z} (z,y) + \eta \left(\frac{\partial \ell}{\partial z}(z,y) \right)^2 \right) \eta e^{-\eta\ell(z,y)} .
+\end{equation*}
+As a result, we know that F is going to be concave as long as $ z \rightarrow \left( -\frac{\partial ^2\ell}{\partial z} (z,y) + \eta \left(\frac{\partial \ell}{\partial z}(z,y) \right)^2 \right) $ is non-positive for all values of $ y\in \mathcal{Y} $. We have
+\begin{equation*}
+	\frac{\partial \ell}{\partial z} (z,y) = \frac{1}{2} \left( \frac{\sqrt{1-y}}{\sqrt{1-z}} - \frac{\sqrt{y}}{\sqrt{z}} \right),
+\end{equation*}
+and
+\begin{equation*}
+	\frac{\partial ^2\ell}{\partial ^2 z} \ell(z,y) = \frac{1}{4}\left( \frac{\sqrt{1-y}}{(1-z)^{\frac{3}{2}}} + \frac{\sqrt{y}}{z^{\frac{3}{2}}} \right).
+\end{equation*}
+The maximal value of $ \eta $ for which the function F is concave is then the infimum of $ \frac{\frac{\partial ^2\ell}{\partial z} (z,y)}{\left( \frac{\partial \ell}{\partial z} (z,y) \right)^2} $.
+I have not been able to explicitly compute this infimum but I have found a nonnegative value of $ \eta $ that works. Indeed
+\begin{align*}
+	\left( \frac{\partial \ell}{\partial z}(z,y) \right)^2 &\leq \frac{1}{4}\left( \frac{1-y}{1-z} + \frac{y}{z} - 2 \sqrt{\frac{y(1-y)}{z(1-z)}} \right) \\
+							       &\leq \frac{1}{4} \left( \frac{1-y}{1-z} + \frac{y}{z} \right) \\
+							       &\leq \frac{1}{4} \left( \frac{\sqrt{1-y}}{(1-z)^{\frac{3}{2}}} + \frac{\sqrt{y}}{z^{\frac{3}{2}}} \right) \\
+							       &= \frac{\partial ^2 \ell}{\partial ^2 z} (z,y),
+\end{align*}
+where we used $ y \leq \sqrt{y}, 1-y \leq (1-y) $ because $ y \in[0,1] $ and $ \frac{1}{1-z} \leq \left(\frac{1}{1-z}\right)^{\frac{3}{2}}, \frac{1}{z} \leq \left( \frac{1}{z} \right)^{\frac{3}{2}} $ because $ \frac{1}{z} \geq 1, \frac{1}{1-z} \geq 1 $. As a result, we have shown that F is concave for $ \eta \leq 1 $.
+\end{solution}
