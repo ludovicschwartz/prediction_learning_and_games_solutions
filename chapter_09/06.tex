@@ -1,0 +1,19 @@
+%! TEX root = ./main.tex
+\begin{exercise}[]{}
+	Show that
+\begin{equation*}
+	\int_{{0}}^{{1}} {\frac{1}{\sqrt{x(1-x)}}} \: d{x} {} = \pi
+\end{equation*}
+\textit{Hint :} Substitue x by $ \sin^2\alpha$
+\end{exercise}
+
+\begin{solution}[]
+	As suggested by the hint, we consider the change of variable $ x=\sin^2 \alpha $. This change of variable is well defined and the squared sinus is a one to one differentiable mapping with non vanishing derivative from $ ]0,\frac{\pi}{2}[ $ to $ ]0,1[ $. Moreover, we have $ \frac{dx}{d \alpha} = 2 \cos \alpha \sin \alpha $. Hence by the change of variable theorem :
+\begin{align*}
+	\int_{{0}}^{{1}} {\frac{1}{\sqrt{x(1-x)}}} \: d{x} {} &= \int_0^{\frac{\pi}{2}} \frac{1}{\sqrt{\sin^2 \alpha \cos^2 \alpha}} \cdot 2 \sin \alpha \cos \alpha \: d \alpha\\
+							      &= 2 \int_{0}^{\frac{\pi}{2}} 1 \: d \alpha \\
+							      &= \pi
+\end{align*}
+
+
+\end{solution}
